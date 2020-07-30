@@ -55,12 +55,12 @@ class BowlFiles
 
     @bowl_load.each do |row|
       player = row.first
-      value = row.last
+      value = parse_value(row.last)
 
       if valid_value?(value)
         res.store(player, res.key?(player) ? res[player] << value : [value])
       else
-        put_error("Invalid value found: #{value}")
+        put_error("Invalid value found: #{row}")
         return {}
       end
     end
@@ -69,11 +69,20 @@ class BowlFiles
 
   # Checks pins down value is valid: F/f, or 0..10
   def valid_value?(value)
-    return true if value === 'F' || value === 'f'
+    return false if value === false
 
-    value_int = Integer(value)
+    return true if value === 'F'
 
-    value_int >= 0 && value_int <= 10
+    value >= 0 && value <= 10
+  rescue StandardError => e
+    put_error("Invalid score value passed \"#{value}\": #{e.message}")
+    false
+  end
+
+  def parse_value(value)
+    return 'F' if value === 'F' || value === 'f'
+
+    Integer(value)
   rescue StandardError => e
     put_error("Invalid score value passed \"#{value}\": #{e.message}")
     false
