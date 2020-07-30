@@ -32,4 +32,4 @@ Jeff	8
 Jeff	1
 John	10
 John	9
-John	0
+John	-10
