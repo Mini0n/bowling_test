@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require './bowl_errors'
-require './bowl_interface'
+require_relative './bowl_errors'
+require_relative './bowl_interface'
 
 module BowlFilesInterface
   extend BowlInterface
@@ -12,16 +12,16 @@ end
 # Reads & Parses bowling game files
 class BowlFiles
   include BowlErrors
-  include BowlFilesInterface
+  # include BowlFilesInterface
 
   # Initialize
-  def initialize(bowling_file)
+  def initialize(bowling_file = nil)
     @bowl_file = bowling_file
     @bowl_game = nil
     @bowl_load = nil
   end
 
-  def load_file(bowling_file)
+  def load_file(bowling_file = nil)
     file = File.open(bowling_file)
     file.readlines.map(&:chomp).map { |line| line.split("\t") }
   rescue StandardError => e
@@ -30,6 +30,8 @@ class BowlFiles
 
   def parse_bowling_game(bowling_file = @bowl_file)
     @bowl_load = load_file(bowling_file) if @bowl_load.nil?
+
+    # byebug
 
     return {} unless valid_bowled?(@bowl_load)
 
