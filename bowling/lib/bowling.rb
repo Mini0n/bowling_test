@@ -35,25 +35,46 @@ class Bowling
     scores = played.score_game
     screen = BowlPrinter.new(scores)
     screen.print_game
-    # byebug
   end
 
   def start
     print_welcome
-    run_tests
-    byebug
+    # run_tests
+    # byebug
+    wait_command
+  end
+
+  def wait_command
+    res = gets.chomp
+    unless res === '3'
+      if res === '1'
+        run_tests
+      else
+        ask_file
+      end
+
+      print_menu
+
+      wait_command
+    end
+  end
+
+  def ask_file
+    puts 'Please input the filename full path to be scored:'.purple
+    filename = gets.chomp
+    run_file(filename)
   end
 
   def print_welcome
     puts ('-' * 43).to_s
     puts 'Welcome'.center(43)
     puts ('-' * 43).to_s
-    puts '> Please choose an option'
     print_menu
   end
 
   def print_menu
-    puts "[1] - Run tests files\n[2] - Run custom file"
+    puts '> Please choose an option (all but 1 or 3 is 2)'
+    puts "[1] - Run tests files\n[2] - Run custom file\n[3] - Exit"
   end
 
   # def run_program; end
