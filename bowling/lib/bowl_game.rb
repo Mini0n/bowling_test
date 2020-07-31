@@ -104,13 +104,7 @@ class BowlGame
     end
   end
 
-  # sanitize value for integra operations
-  def san_val(value)
-    return 0 if value === 'F'
-
-    value
-  end
-
+  # get score value when a score is done
   def calc_spare(frame, i, card)
     if i < 9
       next_frame = card[:frames][i + 1]
@@ -118,18 +112,23 @@ class BowlGame
     end
   end
 
+  # calculate the sum for a value
   def frame_sum(frame)
     res = 0
     frame.each do |val|
-      res += if val === 'F' || val.nil?
-               0
-             else
-               val
-             end
+      res += san_val(val)
     end
     res
   end
 
+  # sanitize value for integer operations
+  def san_val(value)
+    return 0 if value === 'F' || value.nil?
+
+    value
+  end
+
+  # fill the score card with the game ball values
   def fill_score_card(card)
     game = card[:game]
     frames = card[:frames]
@@ -156,6 +155,7 @@ class BowlGame
     card
   end
 
+  # build score card hash
   def build_score_card(player, game)
     {
       name: player,
