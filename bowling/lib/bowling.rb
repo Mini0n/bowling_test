@@ -10,42 +10,60 @@ require './bowl_files'
 require './bowl_game'
 require './bowl_printer'
 
-puts 'testing bowling...'.yellow
+class Bowling
+  def initialize
+    @tests = test_files
+    @cmd = nil
+  end
 
-module Bowling
-  test_1 = '/home/mini0n/Desktop/jobsity/sample1.txt'
-  test_2 = '/home/mini0n/Desktop/jobsity/sample2.txt'
-  test_3 = '/home/mini0n/Desktop/jobsity/sample3.txt'
-  test_4 = '/home/mini0n/Desktop/jobsity/sample4.txt'
-  test_5 = '/home/mini0n/Desktop/jobsity/sample5.txt'
-  test_6 = '/home/mini0n/Desktop/jobsity/sample6.txt'
+  def test_files
+    sample = './../../sample'
+    test_files = 1.upto(6).map { |n| sample + n.to_s + '.txt' }
+  end
 
-  # test = BowlFiles.new(test_3)
-  # ap test.parse_bowling_game
+  def run_tests
+    @tests.each do |test|
+      run_file(test)
+    end
+  end
 
-  # test = BowlFiles.new(test_2)
-  # ap test.parse_bowling_game
+  def run_file(bowl_file)
+    puts "Running #{bowl_file}".green
+    loaded = BowlFiles.new(bowl_file)
+    parsed = loaded.parse_bowling_game
+    played = BowlGame.new(parsed)
+    scores = played.score_game
+    screen = BowlPrinter.new(scores)
+    screen.print_game
+    # byebug
+  end
 
-  files = BowlFiles.new(test_6)
-  file_game = files.parse_bowling_game
+  def start
+    print_welcome
+    run_tests
+    byebug
+  end
 
-  puts 'loaded game'.yellow
-  ap file_game
+  def print_welcome
+    puts ('-' * 43).to_s
+    puts 'Welcome'.center(43)
+    puts ('-' * 43).to_s
+    puts '> Please choose an option'
+    print_menu
+  end
 
-  puts 'solving game...'.yellow
-  game = BowlGame.new(file_game)
-  solv = game.score_game
+  def print_menu
+    puts "[1] - Run tests files\n[2] - Run custom file"
+  end
 
-  puts 'solved game'.yellow
-  ap solv
-
-  puts 'print scoreboard...'.yellow
-  screen = BowlPrinter.new(solv)
-  screen.print_game
-
-  byebug
-
-  # byebug
-
-  puts 'end'
+  # def run_program; end
 end
+
+# ------------------------------------------------------------------------------
+#
+# Program
+#
+# ------------------------------------------------------------------------------
+
+bowl = Bowling.new
+bowl.start
