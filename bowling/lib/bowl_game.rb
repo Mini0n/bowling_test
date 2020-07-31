@@ -28,8 +28,7 @@ class BowlGame
     results = {}
 
     @bowl_game.keys.each do |player|
-      card = score_player(player, @bowl_game[player])
-      results[player] = card
+      results[player] = score_player(player, @bowl_game[player])
     end
 
     results
