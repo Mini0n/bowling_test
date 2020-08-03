@@ -12,7 +12,7 @@ end
 # Reads & Parses bowling game files
 class BowlFiles
   include BowlErrors
-  # include BowlFilesInterface
+  include BowlFilesInterface
 
   # Initialize
   def initialize(bowling_file = nil)

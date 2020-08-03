@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'byebug'
-# require 'bowl_files'
-require 'bowl_errors'
-# require 'bowl_interfaces'
 
 RSpec.describe BowlFiles do
   before(:each) do
