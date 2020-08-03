@@ -20,6 +20,12 @@ whom would knew bowling rules is so codeable.
   - light in memory
   - just do the math
 
+# Running the tests
+
+`cd bowling`
+
+`rspec`
+
 # Running the code
 
 `cd bowling`
@@ -32,7 +38,8 @@ whom would knew bowling rules is so codeable.
 
 # Addedum
 
-I made the screen score print to honor the guy in the video
-He solved it. I just coded it.
+I made the screen score print to honor the guy in the video.
+
+His explanaition was really good. He solved it. I just coded it.
 
 ![board](https://i.imgur.com/vSvxNcs.png)
