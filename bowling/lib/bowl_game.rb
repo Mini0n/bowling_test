@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
-require './bowl_errors'
-require './bowl_interface'
+require_relative './bowl_errors'
+require_relative './bowl_interface'
 
 module BowlGameInterface
   extend BowlInterface
   method :score_game
-  # method :parse_bowling_game
 end
 
 class BowlGame
@@ -20,7 +19,7 @@ class BowlGame
   def score_game(bowling_game = @bowl_game)
     if bowling_game.nil? || bowling_game.empty?
       put_error('Game is empty. Nothing to score')
-      {}
+      return {}
     end
 
     @bowl_game = bowling_game
@@ -129,10 +128,13 @@ class BowlGame
 
   # fill the score card with the game ball values
   def fill_score_card(card)
-    game = card[:game]
+    game = card[:game] || {}
+    return card if game.empty?
+
     frames = card[:frames]
     frame = 0
     ball = 0
+
     game.each do |play|
       if play === 10 && frame < 9
         frames[frame][ball] = play

@@ -49,7 +49,7 @@ RSpec.describe BowlFiles do
     end
   end
 
-  context '#hash_by_player' do
+  describe '#hash_by_player' do
     it 'creates a hash of players and throws for a bowling file' do
       parsed = @files.parse_bowling_game(test1)
       hashed = @files.hash_by_player
