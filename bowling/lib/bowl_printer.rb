@@ -1,7 +1,7 @@
 # frozen_string_literal: false
 
-require './bowl_errors'
-require './bowl_interface'
+require_relative './bowl_errors'
+require_relative './bowl_interface'
 
 module BowlPrinterInterface
   extend BowlInterface
@@ -48,7 +48,7 @@ class BowlPrinter
 
   def print_pitfalls(user_game)
     scores = []
-    line = "|#{print_user(user_game[:name]).center(10)}|"
+    line = "|#{print_user(user_game[:name].to_s).center(10)}|"
     # byebug
     user_game[:frames].each_with_index do |frame, i|
       line += print_balls(frame, i)
@@ -101,15 +101,4 @@ class BowlPrinter
     separator = bottom ? "\'" : (inter ? '|' : '.')
     puts "#{separator}#{'——————————'"#{separator}" * 11}".white
   end
-
-  # ----------------------------------------------------------------------------
-  # |     Name   |   1   | 2    3    4    5    6    7    8    9    10
-  # |----------------------------------------------------------------------------
-  # |            | 8 | / |
-  # | Jose Luis  |¯ ¯ ¯ |
-  # |            |       |
-  # |---------------------------------------------------------------------------
-  # | Estefano   |
-  # |
-  # |
 end
